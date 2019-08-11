@@ -49,19 +49,17 @@ json payload:
      "spotifyAccessToken": "AlsoASpotifyAccessToken"
    }
    ```
-```
-
-   * the `users` microservice uses the tokens to get profile data from the `spotify` micro service:
    
-     ```json
-     GET /v1/spotify/api/createProfile?refresh_token=NgAagAUmSHo&access_token=AlsoASpotifyAccessToken
+   * the `users` microservice uses the tokens to get profile data from the `spotify` micro service:
+```json
+GET /v1/spotify/api/createProfile?refresh_token=NgAagAUmSHo&access_token=AlsoASpotifyAccessToken
      
-     response:
-     {
-       "displayName":"Bob",
-       "email":"bob@bob.com",
-       "profileImageUrl": "https://pics.pics.com/pic_of_bob.jpg"
-     }
+response:
+{
+	"displayName":"Bob",
+	"email":"bob@bob.com",
+  "profileImageUrl": "https://pics.pics.com/pic_of_bob.jpg"
+}
 ```
 
    * The `users` service creates a user from the profile info and fires off a `USER_CREATED` event:
@@ -98,11 +96,11 @@ json payload:
 newly created station model:
 
    ```json
-   {
-   	"email": "bob@bob.com",
-     "displayName": "Bob",
-     "stationStatus": "PENDING"
-   }
+{
+  "email": "bob@bob.com",
+  "displayName": "Bob",
+  "stationStatus": "PENDING"
+}
    ```
 
    
@@ -115,3 +113,4 @@ responds with Bearer token:
   "token": "thisisabearertoken"
 }
 ```
+
