@@ -76,6 +76,6 @@
    }
    ```
 
-5. The `songs` microservice fires off a `SONGS_SONG_CREATED` event for each song.  This launches the [__SONG_AQUISITION_FLOW__](songAcquisitionFlow.md)
+5. The `songs` microservice fires off a `SONGS_SONG_CREATED` event for each song.  This launches the [__SONG_AQUISITION_FLOW__](./SongAcquisitionFlow.md)
 
-6. The `stations`  microservice listens for the `SONGS_SONG_ENABLED` event at the end of the   [__SONG_AQUISITION_FLOW__](songAcquisitionFlow.md).  Each time a song is created, it checks to see if there are enough songs to start the station and, if so, generates a playlist.
+6. The `stations`  microservice listens for the `SONGS_SONG_ENABLED` event at the end of the   [__SONG_AQUISITION_FLOW__](./SongAcquisitionFlow.md).  Each time a song is created, it checks to see if there are enough songs to start the station and, if so, generates a playlist.

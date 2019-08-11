@@ -93,7 +93,7 @@ json payload:
      The `station` service also hears that event and begins building a station for the user:
      
      * Note: Possible race condition b/c the `station` microservice needs the `spotify` service's user to have been created... 
-     * This kicks off the [__StationCreation Flow__](stationCreationFlow.md)
+     * This kicks off the [__StationCreation Flow__](./StationCreationFlow.md)
 
 newly created station model:
 
