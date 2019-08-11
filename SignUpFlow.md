@@ -93,6 +93,7 @@ json payload:
      The `station` service also hears that event and begins building a station for the user:
      
      * Note: Possible race condition b/c the `station` microservice needs the `spotify` service's user to have been created... 
+     * This kicks off the [__StationCreation Flow__](stationCreationFlow.md)
 
 newly created station model:
 
@@ -114,39 +115,3 @@ responds with Bearer token:
   "token": "thisisabearertoken"
 }
 ```
-
-
-
-
-
-
-
-```json
-response
-{
-  "id": "briansuserid",
-  "displayName": "Brian Keane",
-  "email": "brian@playola.fm",
-  "zipcode": "78748",
-  "profileImageUrl": "https://static.playola.fm/brianPic.jpg",
-  "deepLink": "playola://briankeane",
-  "stationID": "123123sdfasdf"
-}
-```
-
-A `USER_CREATED` event is fired that contains:
-
-```json
-{
-  "userID": "briansuserid",
-  "spotifyRefreshToken": "aspotifyrefreshtoken"
-}
-```
-
-
-
-{
-
-}
-
- The `spotify`
