@@ -36,72 +36,74 @@ json payload:
 }
 ```
 
-
-
 ---
 
 3. The client POSTS the new Spotify `refresh_token` and `access_token` to `/v1/users` and receives a `Bearer` Token for use with the Playola API.
 
-   ```json
-   POST /v1/users
-   {
-     "spotifyRefreshToken": "NgAagAUmSHo",
-     "spotifyAccessToken": "AlsoASpotifyAccessToken"
-   }
-   ```
+
+```json
+POST /v1/users
+{
+  "spotifyRefreshToken": "NgAagAUmSHo",
+  "spotifyAccessToken": "AlsoASpotifyAccessToken"
+}
+```
    
    * the `users` microservice uses the tokens to get profile data from the `spotify` micro service:
+
 ```json
-GET /v1/spotify/api/createProfile?refresh_token=NgAagAUmSHo&access_token=AlsoASpotifyAccessToken
+GET /v1/spotify/playolaUserProfile?refresh_token=NgAagAUmSHo&access_token=AlsoASpotifyAccessToken
      
 response:
 {
 	"displayName":"Bob",
 	"email":"bob@bob.com",
-  "profileImageUrl": "https://pics.pics.com/pic_of_bob.jpg"
+  "profileImageURL": "https://pics.pics.com/pic_of_bob.jpg"
 }
 ```
 
-   * The `users` service creates a user from the profile info and fires off a `USER_CREATED` event:
+  * The `users` service creates a user from the profile info and fires off a `USER_CREATED` event:
    
-     ```json
-     {
-     	"user": {
-     		"displayName": "Bob",
-         "email": "bob@bob.com",
-         "id": "aPlayolaUUID"
-     	},
-       "creationData": {
-         "spotifyRefreshToken": "NgAagAUmSHo"
-       }
-     }
-     ```
+
+```json
+{
+	"user": {
+    "displayName": "Bob",
+    "email": "bob@bob.com",
+    "id": "aPlayolaUUID"
+  },
+  "creationData": {
+    "spotifyRefreshToken": "NgAagAUmSHo",
+    "spotifyAccessToken": "asdfasdfdsaf"
+  }
+}
+```
      
-     The `spotify` service hears that event and creates a `SpotifyUser` in it's own db:
+The `spotify` service hears that event and creates a `SpotifyUser` in it's own db:
      
-     ```json
-     {
-       "id": "wizzler",
-       "email": "bob@bob.com",
-       "refresh_token": "NgAagAUmSHo",
-       "playola_uid": "aPlayolaUUID"
-     }
-     ```
+```json
+{
+  "id": "wizzler",
+  "email": "bob@bob.com",
+  "refresh_token": "NgAagAUmSHo",
+  "playola_uid": "aPlayolaUUID"
+}
+```
      
-     The `station` service also hears that event and begins building a station for the user:
+The `station` service also hears that event and begins building a station for the user:
      
-     * Note: Possible race condition b/c the `station` microservice needs the `spotify` service's user to have been created... 
-     * This kicks off the [__StationCreation Flow__](./StationCreationFlow.md)
+  * Note: Possible race condition b/c the `station` microservice needs the `spotify` service's user to have been created... 
+  * This kicks off the [__StationCreation Flow__](./StationCreationFlow.md)
 
 newly created station model:
 
-   ```json
+```json
 {
   "email": "bob@bob.com",
   "displayName": "Bob",
   "stationStatus": "PENDING"
 }
-   ```
+```
 
    
 
@@ -113,4 +115,3 @@ responds with Bearer token:
   "token": "thisisabearertoken"
 }
 ```
-
